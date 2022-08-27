@@ -23,7 +23,7 @@ form h3{
 }
 form{
     position: fixed;
-    bottom: 25%;
+    bottom: 19%;
     background: rgba(34, 34, 34, 0.71);
     display: flex;
     flex-direction: column;
